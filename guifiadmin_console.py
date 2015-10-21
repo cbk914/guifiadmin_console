@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #-*-coding: utf-8-*-
 # Consola d'Admin de Guifi.net
-# Version 0.1-33 pre-alpha - 21/10/2015
+# Version 0.1-35 pre-alpha - 21/10/2015
 # Coded by cbk
 # Copyleft 2015
 # TO-DO:
@@ -50,10 +50,12 @@ def main():
 	print chr(27)+"[1;16m"+"(ia) "+chr(27)+"[0;00m"+"Iniciar Apache WWW Server"
 	print chr(27)+"[1;16m"+"(is) "+chr(27)+"[0;00m"+"Iniciar Squid Proxy"
 	print chr(27)+"[1;16m"+"(nm) "+chr(27)+"[0;00m"+"Escaneo Profundo de Red"
+	print chr(27)+"[1;16m"+"(pi) "+chr(27)+"[0;00m"+"Ping IP/host"
 	print chr(27)+"[1;16m"+"(ra) "+chr(27)+"[0;00m"+"Reiniciar Apache WWW Server"
 	print chr(27)+"[1;16m"+"(rs) "+chr(27)+"[0;00m"+"Reiniciar Squid Proxy"
 	print chr(27)+"[1;16m"+"(sos) "+chr(27)+"[0;00m"+"Ayuda"
 	print chr(27)+"[1;16m"+"(ssh) "+chr(27)+"[0;00m"+"Conectar por SSH a Usuario@IP"
+	print chr(27)+"[1;16m"+"(tr) "+chr(27)+"[0;00m"+"Traceroute IP/host"
 	print chr(27)+"[1;16m"+"(up) "+chr(27)+"[0;00m"+"Actualizar Sistema"
 	print chr(27)+"[1;16m"+"(xt) "+chr(27)+"[0;00m"+"Salir"
 	print chr(27)+"[0;00m"
@@ -63,35 +65,65 @@ def main():
 	if opcion == "sos":
 		clearScreen()
 		print "You're fucked my friend!!!"
+		print ""
+		raw_input("Pulsa una tecla para continuar...")
 		main()
-# Actualizar sistema
 
+# Actualizar sistema
 	if opcion == "up":
+		clearScreen()
 		cmd1 = os.system("sudo /usr/local/bin/actualizar")
+		print "Sistema actualizado"
+		raw_input("Pulsa una tecla para continuar...")
 		main()
+
 # Iniciar Apache
 	if opcion == "ia":
+		clearScreen()	
 		cmd1 = os.system("sudo /etc/init.d/apache2 start")
+		print "Servidor web Apache iniciado"
+		print ""
+		raw_input("Pulsa una tecla para continuar...")
 		main()
+
 # Informacion del sistema
 	if opcion == "in":
 		sysinfo()
+		raw_input("Pulsa una tecla para continuar...")
 		main()	
 
 # Iniciar Squid Proxy Server
 	if opcion == "is":
 		cmd1 = os.system("sudo /etc/init.d/squid3 start")
+		print "Squid Proxy Server iniciado"
+		print ""
+		raw_input("Pulsa una tecla para continuar...")
 		main()
-		
+# Ping
+	if opcion == "pi":
+		clearScreen()
+		IP = raw_input("IP o host ")
+		cmd1 = os.system("ping -c 10 "+IP)
+		raw_input("Pulsa una tecla para continuar...")
+		main() 		
+
 # Conectar via SSH
 	if opcion == "ssh" or opcion == "SSH":
+		clearScreen()
 		servernet= raw_input("usuario@IP ")
 		port = raw_input("Puerto ")
 		cmd1 = os.system("ssh "+servernet+" -p "+port)
+		print "Estableciendo conexion..."
+		main()
+# Traceroute
+	if opcion == "tr":
+		IP = raw_input("IP o host ")
+		cmd1 = os.system("mtr "+IP)
 		main()
 
 # Escanear con Lynis
 	if opcion == "es":
+		clearScreen()	
 		cmd1 = os.system("sudo /usr/sbin/lynis audit system")
 		an1=raw_input("Analizar Manualmente los Resultados? S/N ")
 		if an1 == "S":
@@ -107,22 +139,32 @@ def main():
 
 	else:
 		print "Comando no válido"
+		raw_input("Pulsa una tecla para continuar...")
 		main()
+
 # Escaneo profundo de red
 	if opcion == "nm":
 		cmd1 = nm()
 		nm.wait()
+		raw_input("Pulsa una tecla para continuar...")
 		main()
 		
 # Reiniciar Apache WWW Server
 	if opcion == "ra":
 		cmd1 = os.system("sudo /etc/init.d/apache2 restart")
+		print "Servidor web Apache reiniciado"
+		raw_input("Pulsa una tecla para continuar...")
 		main()		
 # Reiniciar Squid Proxy Server
 	if opcion == "rs":
 		cmd1 = os.system("sudo /etc/init.d/squid3 restart")
+		print "Servidor Proxy Squid reiniciado"
+		raw_input("Pulsa una tecla para continuar...")
 		main()
 # Salir
 	if opcion == "xt":
+		print "Saliendo..."
+		raw_input("Pulsa una tecla para continuar...")
 		sys.exit()
 main()
+
