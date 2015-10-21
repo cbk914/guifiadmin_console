@@ -1,12 +1,10 @@
 #!/usr/bin/python
 #-*-coding: utf-8-*-
 # Consola d'Admin de Guifi.net
-# Version 0.1-52 pre-alpha - 21/10/2015
+# Version 0.1-54 pre-alpha - 21/10/2015
 # Coded by cbk
 # Copyleft 2015
 # TO-DO:
-# 	traceroute
-#	ping
 # 	msf
 #	configurar interfaz de red
 import os
@@ -35,16 +33,16 @@ def nm():
 		else:
 			main()
 	from subprocess import Popen
-	os.system("nmap -h")
+	os.system("nmap -h | less")
 	ip=raw_input("Opciones + IP o rango: ")
 	nm = os.system("sudo nmap -oN /var/log/netscan.log "+ip)
 	an1=raw_input("Analizar Manualmente los Resultados? S/N ")
         if an1 == "S":
                cmd2=os.system("sudo vim /var/log/netscan.log")
         else:
-	        if an1 == "N":
+		if an1 == "N":
         	        print "Saliendo al Menu Principal"
-                	main()
+               		main()
 	raw_input("Pulsa una tecla para continuar...")
 	main()
 
@@ -64,8 +62,8 @@ def main():
 	print "~~~~~~~~~~~~~~~~~~~~~~~"
 	print chr(27)+"[0;00m"
 	print chr(27)+"[0;00m"
-	print chr(27)+"[1;16m"+"(cr) "+chr(27)+"[0;00m"+"Conexiones de la red"
-	print chr(27)+"[1;16m"+"(er) "+chr(27)+"[0;00m"+"Escaneo de Red"
+	print chr(27)+"[1;16m"+"(cr) "+chr(27)+"[0;00m"+"Conexiones de la Red Local"
+	print chr(27)+"[1;16m"+"(er) "+chr(27)+"[0;00m"+"Escaneo de Red Local"
 	print chr(27)+"[1;16m"+"(es) "+chr(27)+"[0;00m"+"Escaneo Local de Seguridad"
 	print chr(27)+"[1;16m"+"(in) "+chr(27)+"[0;00m"+"Informacion del Sistema"
 	print chr(27)+"[1;16m"+"(ia) "+chr(27)+"[0;00m"+"Iniciar Apache WWW Server"
@@ -201,6 +199,14 @@ def main():
 
 
 main()
+
+
+
+
+
+
+
+
 
 
 
