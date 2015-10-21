@@ -5,9 +5,6 @@
 # Coded by cbk
 # Copyleft 2015
 # TO-DO:
-# 	traceroute
-#	ping
-# 	msf
 #	configurar interfaz de red
 import os
 import sys,traceback
