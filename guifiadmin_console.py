@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #-*-coding: utf-8-*-
 # Consola d'Admin de Guifi.net
-# Version 0.1-50 pre-alpha - 21/10/2015
+# Version 0.1-51 pre-alpha - 21/10/2015
 # Coded by cbk
 # Copyleft 2015
 # TO-DO:
@@ -22,6 +22,15 @@ def clearScreen():
 		sistema="posix"
 		
 def nm():
+	if os.path_exists("/usr/bin/nmap"):
+		instalado = 1
+	else:
+		print "Nmap no esta instalado en la ruta por defecto."
+		instalar=raw_input("Pulsa (I) para instalar Nmap, cualquier otra tecla para volver al menú principal.")
+			if instalar = "I" or instalar = "i":
+				cmd1 = os.system("aptitude update && aptitude -y install nmap")
+			else:
+				main()
 	from subprocess import Popen
 	os.system("nmap -h")
 	ip=raw_input("Opciones + IP o rango: ")
@@ -54,7 +63,7 @@ def main():
 	print chr(27)+"[0;00m"
 	print chr(27)+"[1;16m"+"(cr) "+chr(27)+"[0;00m"+"Conexiones de la red"
 	print chr(27)+"[1;16m"+"(er) "+chr(27)+"[0;00m"+"Escaneo de Red"
-	print chr(27)+"[1;16m"+"(es) "+chr(27)+"[0;00m"+"Escaneo de Seguridad"
+	print chr(27)+"[1;16m"+"(es) "+chr(27)+"[0;00m"+"Escaneo Local de Seguridad"
 	print chr(27)+"[1;16m"+"(in) "+chr(27)+"[0;00m"+"Informacion del Sistema"
 	print chr(27)+"[1;16m"+"(ia) "+chr(27)+"[0;00m"+"Iniciar Apache WWW Server"
 	print chr(27)+"[1;16m"+"(is) "+chr(27)+"[0;00m"+"Iniciar Squid Proxy"
@@ -142,8 +151,10 @@ def main():
 			if an1 == "N":
 				print "Saliendo al Menu Principal"
 				main()
+				
 # Escaneo profundo de red
 	if opcion == "nm":
+		clearScreen()
 		cmd1 = nm()
 		nm.wait()
 		raw_input("Pulsa una tecla para continuar...")
@@ -151,7 +162,8 @@ def main():
 
 # Estado de las conexiones de red
 	if opcion == "cr":
-		cmd1 = os.system("netstat -putan")
+		clearScreen()
+		cmd1 = os.system("netstat -putan | less")
 		raw_input("Pulsa una tecla para continuar...")
 		main()
 	
@@ -186,6 +198,8 @@ def main():
 
 
 main()
+
+
 
 
 
