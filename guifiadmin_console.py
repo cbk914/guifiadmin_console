@@ -1,9 +1,7 @@
 #!/usr/bin/python
 #-*-coding: utf-8-*-
-#!/usr/bin/python
-#-*-coding: utf-8-*-
 # Consola d'Admin de Guifi.net
-# Version 0.1-40 pre-alpha - 21/10/2015
+# Version 0.1-41 pre-alpha - 21/10/2015
 # Coded by cbk
 # Copyleft 2015
 # TO-DO:
@@ -173,6 +171,7 @@ def main():
 	if opcion == "xt":
 		print "Saliendo..."
 		raw_input("Pulsa una tecla para continuar...")
+		clearScreen()
 		sys.exit()
 				
 # Escaneo de red
@@ -187,5 +186,6 @@ def main():
 
 
 main()
+
 
 
