@@ -1,7 +1,9 @@
 #!/usr/bin/python
 #-*-coding: utf-8-*-
+#!/usr/bin/python
+#-*-coding: utf-8-*-
 # Consola d'Admin de Guifi.net
-# Version 0.1-35 pre-alpha - 21/10/2015
+# Version 0.1-40 pre-alpha - 21/10/2015
 # Coded by cbk
 # Copyleft 2015
 # TO-DO:
@@ -24,9 +26,17 @@ def clearScreen():
 def nm():
 	from subprocess import Popen
 	os.system("nmap -h")
-	ip=raw_input("IP o rango: ")
-	nm = Popen(['sudo nmap', '-sX -P0 -T5 -oN /var/log/nmapscan.log','+ip+'])
-	nm.wait()
+	ip=raw_input("Opciones + IP o rango: ")
+	nm = os.system("sudo nmap -oN /var/log/netscan.log "+ip)
+	an11=raw_input("Analizar Manualmente los Resultados? S/N ")
+        if an1 == "S":
+               cmd2=os.system("sudo vim /var/log/netscan.log")
+        else:
+	        if an1 == "N":
+        	        print "Saliendo al Menu Principal"
+                	main()
+	raw_input("Pulsa una tecla para continuar...")
+	main()
 
 def sysinfo():
 	print os.system	
@@ -44,6 +54,7 @@ def main():
 	print "~~~~~~~~~~~~~~~~~~~~~~~"
 	print chr(27)+"[0;00m"
 	print chr(27)+"[0;00m"
+	print chr(27)+"[1;16m"+"(cr) "+chr(27)+"[0;00m"+"Conexiones de la red"
 	print chr(27)+"[1;16m"+"(er) "+chr(27)+"[0;00m"+"Escaneo de Red"
 	print chr(27)+"[1;16m"+"(es) "+chr(27)+"[0;00m"+"Escaneo de Seguridad"
 	print chr(27)+"[1;16m"+"(in) "+chr(27)+"[0;00m"+"Informacion del Sistema"
@@ -115,6 +126,7 @@ def main():
 		cmd1 = os.system("ssh "+servernet+" -p "+port)
 		print "Estableciendo conexion..."
 		main()
+		
 # Traceroute
 	if opcion == "tr":
 		IP = raw_input("IP o host ")
@@ -132,23 +144,19 @@ def main():
 			if an1 == "N":
 				print "Saliendo al Menu Principal"
 				main()
-# Escaneo de red
-	if opcion == "er":
-		cmd1 = os.system("sudo /usr/sbin/netdiscover")
-		main()
-
-	else:
-		print "Comando no válido"
-		raw_input("Pulsa una tecla para continuar...")
-		main()
-
 # Escaneo profundo de red
 	if opcion == "nm":
 		cmd1 = nm()
 		nm.wait()
 		raw_input("Pulsa una tecla para continuar...")
 		main()
-		
+
+# Estado de las conexiones de red
+	if opcion == "cr":
+		cmd1 = os.system("netstat -putan")
+		raw_input("Pulsa una tecla para continuar...")
+		main()
+	
 # Reiniciar Apache WWW Server
 	if opcion == "ra":
 		cmd1 = os.system("sudo /etc/init.d/apache2 restart")
@@ -166,5 +174,18 @@ def main():
 		print "Saliendo..."
 		raw_input("Pulsa una tecla para continuar...")
 		sys.exit()
+				
+# Escaneo de red
+	if opcion == "er":
+		cmd1 = os.system("sudo /usr/sbin/netdiscover")
+		main()
+
+	else:
+		print "Comando no válido"
+		raw_input("Pulsa una tecla para continuar...")
+		main()
+
+
 main()
+
 
