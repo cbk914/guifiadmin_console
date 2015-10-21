@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #-*-coding: utf-8-*-
 # Consola d'Admin de Guifi.net
-# Version 0.1-51 pre-alpha - 21/10/2015
+# Version 0.1-52 pre-alpha - 21/10/2015
 # Coded by cbk
 # Copyleft 2015
 # TO-DO:
@@ -22,15 +22,18 @@ def clearScreen():
 		sistema="posix"
 		
 def nm():
-	if os.path_exists("/usr/bin/nmap"):
+	if os.path.exists("/usr/bin/nmap"):
 		instalado = 1
 	else:
 		print "Nmap no esta instalado en la ruta por defecto."
 		instalar=raw_input("Pulsa (I) para instalar Nmap, cualquier otra tecla para volver al menú principal.")
-			if instalar = "I" or instalar = "i":
-				cmd1 = os.system("aptitude update && aptitude -y install nmap")
-			else:
-				main()
+		if instalar == "I" or instalar == "i":
+			print "Instalando Mapeador de Red..."
+			cmd1 = os.system("aptitude update && aptitude -y install nmap")
+			raw_input("Pulsa una tecla para continuar...")
+			main()
+		else:
+			main()
 	from subprocess import Popen
 	os.system("nmap -h")
 	ip=raw_input("Opciones + IP o rango: ")
