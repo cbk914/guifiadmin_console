@@ -1,10 +1,13 @@
 #!/usr/bin/python
 #-*-coding: utf-8-*-
 # Consola d'Admin de Guifi.net
-# Version 0.1-44 pre-alpha - 21/10/2015
+# Version 0.1-50 pre-alpha - 21/10/2015
 # Coded by cbk
 # Copyleft 2015
 # TO-DO:
+# 	traceroute
+#	ping
+# 	msf
 #	configurar interfaz de red
 import os
 import sys,traceback
@@ -23,7 +26,7 @@ def nm():
 	os.system("nmap -h")
 	ip=raw_input("Opciones + IP o rango: ")
 	nm = os.system("sudo nmap -oN /var/log/netscan.log "+ip)
-	an11=raw_input("Analizar Manualmente los Resultados? S/N ")
+	an1=raw_input("Analizar Manualmente los Resultados? S/N ")
         if an1 == "S":
                cmd2=os.system("sudo vim /var/log/netscan.log")
         else:
@@ -183,6 +186,8 @@ def main():
 
 
 main()
+
+
 
 
 
