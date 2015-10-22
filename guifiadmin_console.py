@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #-*-coding: utf-8-*-
 # Consola d'Admin de Guifi.net
-# Version 0.2 beta - 22/10/2015
+# Version 0.2.1 beta - 22/10/2015
 # Coded by cbk
 # Copyleft 2015
 import os
@@ -18,6 +18,9 @@ def clearScreen():
 		sistema="posix"
 def salida():
 	print "Que la fuerza te acompañe!!!"
+
+def continuar():
+	raw_input("Pulsa una tecla para continuar")
 		
 def nm():
 	if os.path.exists("/usr/bin/nmap"):
@@ -28,7 +31,7 @@ def nm():
 		if instalar == "I" or instalar == "i":
 			print "Instalando Mapeador de Red..."
 			cmd1 = os.system("aptitude update && aptitude -y install nmap")
-			raw_input("Pulsa una tecla para continuar...")
+			continuar()
 			main()
 		else:
 			main()
@@ -43,7 +46,7 @@ def nm():
 		if an1 == "N":
         	        print "Saliendo al Menu Principal"
                		main()
-	raw_input("Pulsa una tecla para continuar...")
+	continuar()
 	main()
 
 def sysinfo():
@@ -115,7 +118,7 @@ def main():
 		print "You're fucked my friend!!!"
 		print ""
 		print "https://buscatelavida.com"
-		raw_input("Pulsa una tecla para continuar...")
+		continuar()
 		main()
 
 # Actualizar sistema
@@ -123,37 +126,46 @@ def main():
 		clearScreen()
 		cmd1 = os.system("sudo /usr/local/bin/actualizar")
 		print "Sistema actualizado"
-		raw_input("Pulsa una tecla para continuar...")
+		continuar()
 		main()
 
 # Iniciar Apache
 	if opcion == "ia":
-		clearScreen()	
-		cmd1 = os.system("sudo /etc/init.d/apache2 start")
-		print "Servidor web Apache iniciado"
-		print ""
-		raw_input("Pulsa una tecla para continuar...")
-		main()
-
+		if os.path.exists("/usr/sbin/apache2"):
+			clearScreen()	
+			cmd1 = os.system("sudo /etc/init.d/apache2 start")
+			print "Servidor web Apache iniciado"
+			print ""
+			continuar()
+			main()
+		else:
+			print "Apache no esta instalado"
+			continuar()
 # Informacion del sistema
 	if opcion == "in":
 		sysinfo()
+		continuar()
 		raw_input("Pulsa una tecla para continuar...")
 		main()	
 
 # Iniciar Squid Proxy Server
 	if opcion == "is":
-		cmd1 = os.system("sudo /etc/init.d/squid3 start")
-		print "Squid Proxy Server iniciado"
-		print ""
-		raw_input("Pulsa una tecla para continuar...")
-		main()
+		if os.path.exists("/usr/bin/squid"):
+			cmd1 = os.system("sudo /etc/init.d/squid3 start")
+			print "Squid Proxy Server iniciado"
+			print ""
+			continuar()
+			main()
+		else:
+			print "Squid no esta instalado"
+			continuar()
+			main()
 # Ping
 	if opcion == "pi":
 		clearScreen()
 		IP = raw_input("IP o host ")
 		cmd1 = os.system("ping -c 10 "+IP)
-		raw_input("Pulsa una tecla para continuar...")
+		continuar()
 		main() 		
 
 # Conectar via SSH
@@ -176,32 +188,32 @@ def main():
 		clearScreen()
 		cmd1 = nm()
 		nm.wait()
-		raw_input("Pulsa una tecla para continuar...")
+		continuar()
 		main()
 
 # Estado de las conexiones de red
 	if opcion == "cr":
 		clearScreen()
 		cmd1 = os.system("netstat -putan | less")
-		raw_input("Pulsa una tecla para continuar...")
+		continuar()		
 		main()
 	
 # Reiniciar Apache WWW Server
 	if opcion == "ra":
 		cmd1 = os.system("sudo /etc/init.d/apache2 restart")
 		print "Servidor web Apache reiniciado"
-		raw_input("Pulsa una tecla para continuar...")
+		continuar()
 		main()		
 # Reiniciar Squid Proxy Server
 	if opcion == "rs":
 		cmd1 = os.system("sudo /etc/init.d/squid3 restart")
 		print "Servidor Proxy Squid reiniciado"
-		raw_input("Pulsa una tecla para continuar...")
+		continuar()
 		main()
 # Salir
 	if opcion == "xt":
 		print "Saliendo..."
-		raw_input("Pulsa una tecla para continuar...")
+		continuar()
 		clearScreen()
 		sys.exit()
 # Whois
@@ -209,8 +221,7 @@ def main():
 		clearScreen()
 		ip=raw_input("IP o host ")
 		cmd1 = os.system("whois "+ip+"|less")
-		raw_input("Pulsa una tecla para continuar...")
-		
+		continuar()	
 # Escaneo de red
 	if opcion == "er":
 		cmd1 = os.system("sudo /usr/sbin/netdiscover")
@@ -230,7 +241,7 @@ def main():
 
 	else:
 		print "Comando no válido"
-		raw_input("Pulsa una tecla para continuar...")
+		continuar()
 		main()
 try:
 	main() 
