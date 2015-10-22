@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #-*-coding: utf-8-*-
 # Consola d'Admin de Guifi.net
-# Version 0.1-63 alpha - 21/10/2015
+# Version 0.1-64 alpha - 21/10/2015
 # Coded by cbk
 # Copyleft 2015
 # TO-DO:
@@ -113,6 +113,7 @@ def main():
 		clearScreen()
 		print "You're fucked my friend!!!"
 		print ""
+		print "https://buscatelavida.com"
 		raw_input("Pulsa una tecla para continuar...")
 		main()
 
@@ -210,27 +211,15 @@ def main():
 
 # Escanear con Lynis
         if opcion == "es":
-                        if os.path.exists("/usr/sbin/lynis"):
-                                instalado = 1
-                        else:
-                                print "Lynis no esta instalado en la ruta por defecto."
-                                instalar=raw_input("Pulsa (I) para instalar Lynis, cualquier otra tecla para volver al menú principal.")
-                                if instalar == "I" or instalar == "i":
-                                        print "Instalando Lynis..."
-                                        cmd1 = os.system("aptitude update && aptitude -y install lynis")
-                                        raw_input("Pulsa una tecla para continuar...")
-                                        main()
-                                else:
-                                        main()
-        clearScreen()
-        cmd1 = os.system("sudo /usr/sbin/lynis audit system")
-        an1=raw_input("Analizar Manualmente los Resultados? S/N ")
-        if an1 == "S":
-                cmd2=os.system("sudo vim /var/log/lynis.log")
-        else:
-                if an1 == "N":
-                        print "Saliendo al Menu Principal"
-                        main()
+	        clearScreen()
+        	cmd1 = os.system("sudo /usr/sbin/lynis audit system")
+	        an1=raw_input("Analizar Manualmente los Resultados? S/N ")
+	        if an1 == "S":
+        	        cmd2=os.system("sudo vim /var/log/lynis.log")
+        	else:
+                	if an1 == "N":
+                        	print "Saliendo al Menu Principal"
+                        	main()
 
 	else:
 		print "Comando no válido"
