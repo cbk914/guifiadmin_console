@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #-*-coding: utf-8-*-
 # Consola d'Admin de Guifi.net
-# Version 0.2.7 beta - 22/10/2015
+# Version 0.2.9 beta - 22/10/2015
 # Coded by cbk
 # Copyleft 2015
 import os
@@ -23,12 +23,19 @@ def continuar():
 	raw_input("Pulsa una [ENTER] para continuar")
 
 def checkinstall(tool):
-	if os.path.exists("path.tool"):
-		instalado = 1
+	if tool == "netdiscover" or tool == "lynis":
+		path="/usr/sbin/"
 	else:
-		print tool+"no esta instalado en la ruta por defecto."
-		instalar = raw_input("Pulsa (I) para instalar "+tool+", [ENTER] para volver al menu principal")
-		if instalar.upper == "I":
+		path="/usr/bin/"
+
+	if os.path.exists(path+tool):
+		instalado = True
+	else:
+		print "La ruta "+path+tool+" no existe \n"
+		print tool+" no esta instalado en la ruta por defecto. \n"
+		instalar = raw_input("Pulsa (I) para instalar "+tool+", o cualquier tecla para volver al menu principal \n")
+		instalar = instalar.lower
+		if instalar == "i":
 			print "Instalando "+tool
 			cmd1 = os.system("aptitude update && aptitude -y install "+tool)
 			continuar()
@@ -38,18 +45,17 @@ def checkinstall(tool):
 
 def nm():
 	tool = "nmap"
-	path = "usr/bin/"
 	checkinstall(tool)
 	from subprocess import Popen
 	os.system("nmap -h | less")
 	ip=raw_input("Opciones + IP o rango: ")
 	nm = os.system("sudo nmap -oN /var/log/netscan.log "+ip)
-	an1=raw_input("Analizar Manualmente los Resultados? S/N ")
+	an1=raw_input("Analizar Manualmente los Resultados? S/N \n")
         if an1.upper == "S":
                cmd2=os.system("sudo vim /var/log/netscan.log")
         else:
 		if an1.upper == "N":
-        	        print "Saliendo al Menu Principal"
+        	        print "Saliendo al Menu Principal \n"
                		main()
 	continuar()
 	main()
@@ -80,7 +86,6 @@ def sysinfo():
                         print chr(27)+"[0;33m"+"Sistema Operativo Desconocido"+chr(27)+"[0;00m"
 	print ""
 	tool = "lm-sensors"
-	path = "/usr/bin/sensors/"
 	checkinstall(tool)
 	print chr(27)+"[0;33m"+"Temperatura del sistema: "
 	print chr(27)+"[0;00m"
@@ -145,7 +150,6 @@ def main():
 	if opcion == "in":
 		sysinfo()
 		continuar()
-		raw_input("Pulsa una tecla para continuar...")
 		main()	
 
 # Iniciar Squid Proxy Server
@@ -220,7 +224,6 @@ def main():
 	if opcion == "who":
 		clearScreen()
 		tool = "whois"
-		path = "/usr/bin/"
 		checkinstall(tool)
 		ip=raw_input("IP o host ")
 		cmd1 = os.system("whois "+ip+"|less")
@@ -228,7 +231,6 @@ def main():
 # Escaneo de red
 	if opcion == "er":
 		tool = "netdiscover"
-		path = "/usr/sbin/"
 		checkinstall(tool)
 		cmd1 = os.system("sudo /usr/sbin/netdiscover")
 		main()
@@ -237,7 +239,6 @@ def main():
         if opcion == "es":
 	        clearScreen()
 		tool = "lynis"
-		path = "/usr/sbin/"
 		checkinstall(tool)
         	cmd1 = os.system("sudo /usr/sbin/lynis audit system")
 	        an1=raw_input("Analizar Manualmente los Resultados? S/N ")
