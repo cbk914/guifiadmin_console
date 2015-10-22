@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #-*-coding: utf-8-*-
 # Consola d'Admin de Guifi.net
-# Version 0.2.5 beta - 22/10/2015
+# Version 0.2.7 beta - 22/10/2015
 # Coded by cbk
 # Copyleft 2015
 import os
@@ -21,29 +21,34 @@ def salida():
 
 def continuar():
 	raw_input("Pulsa una [ENTER] para continuar")
-		
-def nm():
-	if os.path.exists("/usr/bin/nmap"):
+
+def checkinstall(tool):
+	if os.path.exists("path.tool"):
 		instalado = 1
 	else:
-		print "Nmap no esta instalado en la ruta por defecto."
-		instalar=raw_input("Pulsa (I) para instalar Nmap, cualquier otra tecla para volver al menú principal.")
-		if instalar.lower == "i":
-			print "Instalando Mapeador de Red..."
-			cmd1 = os.system("aptitude update && aptitude -y install nmap")
+		print tool+"no esta instalado en la ruta por defecto."
+		instalar = raw_input("Pulsa (I) para instalar "+tool+", [ENTER] para volver al menu principal")
+		if instalar.upper == "I":
+			print "Instalando "+tool
+			cmd1 = os.system("aptitude update && aptitude -y install "+tool)
 			continuar()
 			main()
 		else:
 			main()
+
+def nm():
+	tool = "nmap"
+	path = "usr/bin/"
+	checkinstall(tool)
 	from subprocess import Popen
 	os.system("nmap -h | less")
 	ip=raw_input("Opciones + IP o rango: ")
 	nm = os.system("sudo nmap -oN /var/log/netscan.log "+ip)
 	an1=raw_input("Analizar Manualmente los Resultados? S/N ")
-        if an1 == "S":
+        if an1.upper == "S":
                cmd2=os.system("sudo vim /var/log/netscan.log")
         else:
-		if an1 == "N":
+		if an1.upper == "N":
         	        print "Saliendo al Menu Principal"
                		main()
 	continuar()
@@ -74,18 +79,11 @@ def sysinfo():
         else:
                         print chr(27)+"[0;33m"+"Sistema Operativo Desconocido"+chr(27)+"[0;00m"
 	print ""
+	tool = "lm-sensors"
+	path = "/usr/bin/sensors/"
+	checkinstall(tool)
 	print chr(27)+"[0;33m"+"Temperatura del sistema: "
 	print chr(27)+"[0;00m"
-	if os.path.exists("/usr/bin/sensors"):
-		instalado = 1
-		os.system("sensors")
-	else:
-		instalar = raw_input("Quieres instalar los sensores de temperatura? S/N ")
-		if instalar.lower == "s":
-			os.system("aptitude update && aptitude -y install lm-sensors")
-			sysinfo()
-		else:
-			sysinfo()
 			
 def main():
 	clearScreen()
@@ -141,6 +139,8 @@ def main():
 		else:
 			print "Apache no esta instalado"
 			continuar()
+			main()
+
 # Informacion del sistema
 	if opcion == "in":
 		sysinfo()
@@ -219,23 +219,32 @@ def main():
 # Whois
 	if opcion == "who":
 		clearScreen()
+		tool = "whois"
+		path = "/usr/bin/"
+		checkinstall(tool)
 		ip=raw_input("IP o host ")
 		cmd1 = os.system("whois "+ip+"|less")
 		continuar()	
 # Escaneo de red
 	if opcion == "er":
+		tool = "netdiscover"
+		path = "/usr/sbin/"
+		checkinstall(tool)
 		cmd1 = os.system("sudo /usr/sbin/netdiscover")
 		main()
 
 # Escanear con Lynis
         if opcion == "es":
 	        clearScreen()
+		tool = "lynis"
+		path = "/usr/sbin/"
+		checkinstall(tool)
         	cmd1 = os.system("sudo /usr/sbin/lynis audit system")
 	        an1=raw_input("Analizar Manualmente los Resultados? S/N ")
-	        if an1 == "S":
+	        if an1.upper == "S":
         	        cmd2=os.system("sudo vim /var/log/lynis.log")
         	else:
-                	if an1 == "N":
+                	if an1.upper == "N":
                         	print "Saliendo al Menu Principal"
                         	main()
 
