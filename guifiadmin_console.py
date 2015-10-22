@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #-*-coding: utf-8-*-
 # Consola d'Admin de Guifi.net
-# Version 0.2.4 beta - 22/10/2015
+# Version 0.2.5 beta - 22/10/2015
 # Coded by cbk
 # Copyleft 2015
 import os
@@ -28,7 +28,7 @@ def nm():
 	else:
 		print "Nmap no esta instalado en la ruta por defecto."
 		instalar=raw_input("Pulsa (I) para instalar Nmap, cualquier otra tecla para volver al menú principal.")
-		if instalar == "I" or instalar == "i":
+		if instalar.lower == "i":
 			print "Instalando Mapeador de Red..."
 			cmd1 = os.system("aptitude update && aptitude -y install nmap")
 			continuar()
@@ -81,7 +81,7 @@ def sysinfo():
 		os.system("sensors")
 	else:
 		instalar = raw_input("Quieres instalar los sensores de temperatura? S/N ")
-		if instalar == "S" or instalar == "s":
+		if instalar.lower == "s":
 			os.system("aptitude update && aptitude -y install lm-sensors")
 			sysinfo()
 		else:
