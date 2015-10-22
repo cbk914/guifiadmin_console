@@ -1,12 +1,9 @@
 #!/usr/bin/python
 #-*-coding: utf-8-*-
 # Consola d'Admin de Guifi.net
-# Version 0.1-65 alpha - 21/10/2015
+# Version 0.2 beta - 22/10/2015
 # Coded by cbk
 # Copyleft 2015
-# TO-DO:
-# 	msf
-#	configurar interfaz de red
 import os
 import sys,traceback
 import socket
