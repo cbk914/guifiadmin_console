@@ -235,8 +235,11 @@ def main():
 		print "Comando no válido"
 		raw_input("Pulsa una tecla para continuar...")
 		main()
-atexit.register(salida)
-main()
+try:
+	main() 
+except KeyboardInterrupt:
+	atexit.register(salida)
+	main()
 
 
 
