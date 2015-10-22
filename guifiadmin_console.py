@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #-*-coding: utf-8-*-
 # Consola d'Admin de Guifi.net
-# Version 0.2.2 beta - 22/10/2015
+# Version 0.2.4 beta - 22/10/2015
 # Coded by cbk
 # Copyleft 2015
 import os
@@ -20,7 +20,7 @@ def salida():
 	print "Que la fuerza te acompañe!!!"
 
 def continuar():
-	raw_input("Pulsa una tecla para continuar")
+	raw_input("Pulsa una [ENTER] para continuar")
 		
 def nm():
 	if os.path.exists("/usr/bin/nmap"):
@@ -80,7 +80,7 @@ def sysinfo():
 		instalado = 1
 		os.system("sensors")
 	else:
-		instalar = raw_input("Quieres instalar los sensores de temperatura? S/N")
+		instalar = raw_input("Quieres instalar los sensores de temperatura? S/N ")
 		if instalar == "S" or instalar == "s":
 			os.system("aptitude update && aptitude -y install lm-sensors")
 			sysinfo()
