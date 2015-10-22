@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #-*-coding: utf-8-*-
 # Consola d'Admin de Guifi.net
-# Version 0.1-64 alpha - 21/10/2015
+# Version 0.1-65 alpha - 21/10/2015
 # Coded by cbk
 # Copyleft 2015
 # TO-DO:
@@ -107,6 +107,7 @@ def main():
 	print chr(27)+"[1;16m"+"(ssh) "+chr(27)+"[0;00m"+"Conectar por SSH a Usuario@IP"
 	print chr(27)+"[1;16m"+"(tr) "+chr(27)+"[0;00m"+"Traceroute IP/host"
 	print chr(27)+"[1;16m"+"(up) "+chr(27)+"[0;00m"+"Actualizar Sistema"
+	print chr(27)+"[1;16m"+"(who) "+chr(27)+"[0;00m"+"Whois IP/host"
 	print chr(27)+"[1;16m"+"(xt) "+chr(27)+"[0;00m"+"Salir"
 	print chr(27)+"[0;00m"
 	opcion = raw_input("Comando: ")
@@ -206,7 +207,13 @@ def main():
 		raw_input("Pulsa una tecla para continuar...")
 		clearScreen()
 		sys.exit()
-				
+# Whois
+	if opcion == "who":
+		clearScreen()
+		ip=raw_input("IP o host ")
+		cmd1 = os.system("whois "+ip+"|less")
+		raw_input("Pulsa una tecla para continuar...")
+		
 # Escaneo de red
 	if opcion == "er":
 		cmd1 = os.system("sudo /usr/sbin/netdiscover")
