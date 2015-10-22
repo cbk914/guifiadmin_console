@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #-*-coding: utf-8-*-
 # Consola d'Admin de Guifi.net
-# Version 0.2.1 beta - 22/10/2015
+# Version 0.2.2 beta - 22/10/2015
 # Coded by cbk
 # Copyleft 2015
 import os
@@ -89,7 +89,7 @@ def sysinfo():
 			
 def main():
 	clearScreen()
-	print chr(27)+"[0;33m"+"v0.1 - GuifiAdmin Panel"
+	print chr(27)+"[0;33m"+"GuifiAdmin Panel - v0.2"
 	print "~~~~~~~~~~~~~~~~~~~~~~~"
 	print chr(27)+"[0;00m"
 	print chr(27)+"[0;00m"
