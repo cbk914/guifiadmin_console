@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #-*-coding: utf-8-*-
 # Consola d'Admin de Guifi.net
-# Version 0.1-54 pre-alpha - 21/10/2015
+# Version 0.1-61 alpha - 21/10/2015
 # Coded by cbk
 # Copyleft 2015
 # TO-DO:
@@ -47,14 +47,42 @@ def nm():
 	main()
 
 def sysinfo():
-	print os.system	
+	clearScreen()
+	print chr(27)+"[0;33m"+"Nombre del sistema: "
+	print chr(27)+"[0m"
+	os.system("cat /proc/sys/kernel/hostname")
+	print ""
+	print chr(27)+"[0;33m"+"Estado arbol del sistema:" 
+	print chr(27)+"[0m"
+	os.system("df -h")
+	print ""
+	print chr(27)+"[0;33m"+"Memoria RAM disponible:"
+	print chr(27)+"[0m"
+	os.system("free -m")
+	print ""
+	print chr(27)+"[0;33m"+"Informacion del sistema"
+	print chr(27)+"[0m"
 	os.system("sudo lsb_release -a")
-	if os.name =="nt":
-                        print"Sistema Operativo: Windows"
-        elif os.name =="posix":
-                        print "Sistema Operativo: Linux/MAC"
+	print ""
+	if os.name == "nt":
+                        print chr(27)+"[0;33m"+"Sistema Operativo: Windows"+chr(27)+"[0m"
+        elif os.name == "posix":
+                        print chr(27)+"[0;33m"+"Sistema Operativo: Linux/MAC"+chr(27)+"[0;00m"
         else:
-                        print "Sistema Operativo Desconocido"
+                        print chr(27)+"[0;33m"+"Sistema Operativo Desconocido"+chr(27)+"[0;00m"
+	print ""
+	print chr(27)+"[0;33m"+"Temperatura del sistema: "
+	print chr(27)+"[0;00m"
+	if os.path.exists("/usr/bin/sensors"):
+		instalado = 1
+		os.system("sensors")
+	else:
+		instalar = raw_input("Quieres instalar los sensores de temperatura? S/N")
+		if instalar == "S" or instalar == "s":
+			os.system("aptitude update && aptitude -y install lm-sensors")
+			sysinfo()
+		else:
+			sysinfo()
 			
 def main():
 	clearScreen()
@@ -143,15 +171,27 @@ def main():
 
 # Escanear con Lynis
 	if opcion == "es":
-		clearScreen()	
-		cmd1 = os.system("sudo /usr/sbin/lynis audit system")
-		an1=raw_input("Analizar Manualmente los Resultados? S/N ")
-		if an1 == "S":
-			cmd2=os.system("sudo vim /var/log/lynis.log")
-		else:
-			if an1 == "N":
-				print "Saliendo al Menu Principal"
-				main()
+			if os.path.exists("/usr/sbin/lynis"):
+				instalado = 1
+			else:
+				print "Lynis no esta instalado en la ruta por defecto."
+				instalar=raw_input("Pulsa (I) para instalar Lynis, cualquier otra tecla para volver al menú principal.")
+				if instalar == "I" or instalar == "i":
+					print "Instalando Lynis..."
+					cmd1 = os.system("aptitude update && aptitude -y install lynis")
+					raw_input("Pulsa una tecla para continuar...")
+					main()
+				else:
+					main()
+	clearScreen()	
+	cmd1 = os.system("sudo /usr/sbin/lynis audit system")
+	an1=raw_input("Analizar Manualmente los Resultados? S/N ")
+	if an1 == "S":
+		cmd2=os.system("sudo vim /var/log/lynis.log")
+	else:
+		if an1 == "N":
+			print "Saliendo al Menu Principal"
+			main()
 				
 # Escaneo profundo de red
 	if opcion == "nm":
@@ -199,6 +239,14 @@ def main():
 
 
 main()
+
+
+
+
+
+
+
+
 
 
 
