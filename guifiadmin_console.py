@@ -10,6 +10,7 @@
 import os
 import sys,traceback
 import socket
+import atexit
 
 def clearScreen():
 	if os.name == "nt":
@@ -18,6 +19,8 @@ def clearScreen():
 	elif os.name == "posix":
 		os.system("clear")
 		sistema="posix"
+def salida():
+	print "Que la fuerza te acompañe!!!"
 		
 def nm():
 	if os.path.exists("/usr/bin/nmap"):
@@ -225,7 +228,7 @@ def main():
 		print "Comando no válido"
 		raw_input("Pulsa una tecla para continuar...")
 		main()
-
+atexit.register(salida)
 main()
 
 
