@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #-*-coding: utf-8-*-
 # Consola d'Admin de Guifi.net
-# Version 0.1-62 alpha - 21/10/2015
+# Version 0.1-63 alpha - 21/10/2015
 # Coded by cbk
 # Copyleft 2015
 # TO-DO:
@@ -208,11 +208,6 @@ def main():
 		cmd1 = os.system("sudo /usr/sbin/netdiscover")
 		main()
 
-	else:
-		print "Comando no válido"
-		raw_input("Pulsa una tecla para continuar...")
-		main()
-
 # Escanear con Lynis
         if opcion == "es":
                         if os.path.exists("/usr/sbin/lynis"):
@@ -237,9 +232,36 @@ def main():
                         print "Saliendo al Menu Principal"
                         main()
 
-
+	else:
+		print "Comando no válido"
+		raw_input("Pulsa una tecla para continuar...")
+		main()
 
 main()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
