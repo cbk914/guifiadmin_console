@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #-*-coding: utf-8-*-
 # Consola d'Admin de Guifi.net
-# Version 0.2.9 beta - 22/10/2015
+# Version 0.2.10 beta - 22/10/2015
 # Coded by cbk
 # Copyleft 2015
 import os
@@ -20,7 +20,7 @@ def salida():
 	print "Que la fuerza te acompañe!!!"
 
 def continuar():
-	raw_input("Pulsa una [ENTER] para continuar")
+	raw_input("Pulsa [ENTER] para continuar")
 
 def checkinstall(tool):
 	if tool == "netdiscover" or tool == "lynis":
